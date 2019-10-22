@@ -1,0 +1,57 @@
+Task Description:
+	Build a small app that displays data from the TV Maze API.
+	Use the follwing API http://api.tvmaze.com/shows/1/episodes data for the app.
+	The app should consist of two pages.
+
+	Pages
+	1.	Display summaries and Images("medium") inside the json by using 
+		RecyclerView or Gridview
+	2.	Display all detail data include images("original") in another page which 
+		from the row in last page, when users click the link it should open a 
+		webview to display the website inside this app.
+
+I divided the whole task into 2 main parts:
+	1. 	connectivity to remote website: api.tvmaze.com
+	2. 	android page display: RecyclerView for Summay display and 
+		WebView for detailed information page.
+
+The reasons why I separately implemented the 2 parts lie in:
+	1. 	I use basic httpConnection class for Java to handle http traffic, which 
+		requires repeatative testing and accumulative progress making, to 
+		achieve better trade-offs regarding of time consumption and 
+		computational effectiveness. 
+	2.	The data format that defined in this project is long json string, which 
+		can be get from naive GET http invocation. Whereas for Java programming,
+		it turns out to be problematic when using external resources (jars) to
+		accomplish. I searched for Maven repo and many other online resources to
+		handle parsing of JSON format. 
+	3.	I use Android Java for coding android project, which could directly
+		(actually with minor changes) accept what I have done in http part.
+
+Task Response:
+	Since the time is limited, I did not fully realize all required 
+	functionalities, but still I achieved many:
+	1.	A sound http class which could handle GET and POST http requests, as 
+		long as correct url is given.
+	2.	A summary page which contains a RecyclerView and filled with testing
+		text and images. RecyclerView is a new concept to me and I spent quite
+		a lot time in learning how to manage it to run. Finally it works.
+	3.	A combination of implemented http class and Android Summary page. On 
+		creating the Summary page, it reads out the url for all https which 
+		stored in string.xml as constant. Then it parses the reply from such
+		website into JSONArray and JSONObjects, aiming at extracting data that
+		needed to render the page.
+
+Difficulties:
+	1.	I am not familiar with RecyclerView but I am still willing to try on it.
+		So maybe I spent too much time and efforts on managing it to work. 
+		(Actually I did)
+	2. 	Android forces a strong policy on explicit text transfer, which doesn't 
+		accept the name api.tvmaze.com from the first http request. I tried to 
+		deal with and put many efforts on configuring files and AndroidManifest,
+		however, neither of them actually effective. 
+
+Steps to continue:
+	1.	Figure out the "real" reason that prevents android from sending http 
+		requests to remote server. 
+	2.	Add analyzed data to render Summary and Detail pages.
